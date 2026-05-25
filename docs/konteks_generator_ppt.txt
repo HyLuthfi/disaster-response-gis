@@ -1,0 +1,46 @@
+[PROYEK: DARLAM - Sistem Informasi Geografi Respon Darurat Bencana Lampung]
+[STATUS: Laporan Progres Minggu Ke-1 (Dari Total 4 Minggu)]
+[FOKUS MINGGU 1: Pembangunan Arsitektur Database Spasial & Ekstraksi Data GIS]
+
+--- KONTEKS MASALAH UTAMA ---
+Dalam penanganan pasca-bencana (seperti studi kasus di Aceh atau daerah rawan bencana lainnya), tantangan terbesar adalah terhambatnya proses evakuasi dan logistik akibat akses jalan utama yang tertutup material longsor, pohon tumbang, atau banjir.
+Untuk memulihkan jalur tersebut, dibutuhkan pengerahan "Alat Berat" (Excavator, Bulldozer, Dump Truck) secara sangat cepat. 
+Namun di lapangan, BPBD dan tim SAR mengalami masalah:
+1. Tidak ada basis data terpusat yang melacak koordinat alat berat yang sedang siaga atau beroperasi.
+2. Keputusan penugasan alat berat sering tidak efisien karena tidak memperhitungkan jarak tempuh aktual.
+3. Rute jalan menuju lokasi bencana sering kali terputus secara tiba-tiba, dan tim kesulitan mencari "Rute Alternatif" secara real-time.
+
+--- SOLUSI YANG DITAWARKAN (DARLAM) ---
+DARLAM adalah sistem cerdas berbasis Web-GIS (Geographic Information System) yang berfungsi sebagai "Sistem Pendukung Keputusan Dispatch Alat Berat".
+Fitur pembunuhnya adalah "Dynamic Routing": Sistem tidak hanya mencari alat berat terdekat, tetapi mampu menghitung ulang rute secara matematis (Dijkstra algorithm) apabila ada laporan bahwa ruas jalan tertentu tertutup akibat longsor susulan.
+
+--- ARSITEKTUR & TEKNOLOGI (ENGINEERING LAYER) ---
+Untuk mewujudkan Dynamic Routing dan kalkulasi spasial, proyek ini menggunakan teknologi yang berstandar industri (bukan file statis/JSON).
+1. PostgreSQL: Sebagai Relational Database Management System (RDBMS) utama.
+2. PostGIS: Ekstensi spasial yang memungkinkan penyimpanan titik koordinat (Point) untuk alat berat, dan garis topologi jalan (LineString).
+3. pgRouting: Ekstensi algoritma graf (Graph Algorithm) yang berjalan langsung di level database untuk mencari rute tercepat (Cost-based routing).
+4. QGIS: Software pemetaan untuk mengolah dan membersihkan data satelit/peta mentah.
+
+--- PENCAPAIAN MINGGU KE-1 (HASIL IMPLEMENTASI) ---
+Minggu pertama difokuskan 100% pada penyiapan fondasi data (Backbone), dengan 3 hasil utama:
+
+1. Perancangan Skema Relasi Database (ERD)
+Database berhasil dibangun dengan 5 tabel operasional yang saling berelasi:
+- Tabel "alat_berat": Menyimpan koordinat armada dan status ketersediaan.
+- Tabel "kejadian_bencana": Menyimpan titik lokasi insiden bencana.
+- Tabel "penugasan": Merekam log/histori penugasan alat berat ke lokasi insiden.
+- Tabel "jaringan_jalan": Menyimpan struktur jalan lengkap dengan kolom source, target, dan cost untuk pgRouting.
+- Tabel "laporan_jalan_tutup": Menampung laporan crowdsourcing relawan jika ada jalan yang terputus.
+
+2. Ekstraksi Data Spasial Asli (Bukan Dummy)
+Data jaringan jalan raya wilayah Lampung Selatan (dengan fokus awal di Kalianda) diekstrak secara langsung dari OpenStreetMap (OSM) menggunakan QGIS. Proyek ini menggunakan peta dunia nyata, bukan sekadar garis lurus.
+
+3. Topology Cleaning (Pembersihan Topologi)
+Data satelit mentah selalu memiliki cacat (garis jalan bertumpuk atau tidak tersambung di persimpangan). Jika cacat ini masuk ke sistem rute, algoritma akan error. Oleh karena itu, telah dilakukan "Topology Cleaning" menggunakan algoritma "v.clean" (Grass GIS). Proses ini memotong garis secara presisi di setiap persimpangan (nodes), sehingga graf jalan valid untuk kalkulasi jarak.
+
+4. Impor ke PostGIS & Data Simulasi
+Data jalan bersih berformat GeoJSON telah berhasil diimpor ke PostgreSQL (darlam_db). Selain itu, 5 data simulasi alat berat dan titik RS/Posko telah disuntikkan ke dalam database untuk bahan pengujian API di minggu selanjutnya.
+
+--- KESIMPULAN MINGGU 1 & TARGET MINGGU 2 ---
+Kesimpulan: Infrastruktur data keruangan (Spatial Database) telah berdiri sepenuhnya. Data siap diolah secara matematis.
+Target Minggu 2: Membangun Backend API (FastAPI Python) untuk menjembatani Database dan membuat fungsi otomatis pencarian rute terpendek.
