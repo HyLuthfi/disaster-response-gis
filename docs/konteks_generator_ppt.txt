@@ -1,46 +1,42 @@
 [PROYEK: DARLAM - Sistem Informasi Geografi Respon Darurat Bencana Lampung]
-[STATUS: Laporan Progres Minggu Ke-1 (Dari Total 4 Minggu)]
-[FOKUS MINGGU 1: Pembangunan Arsitektur Database Spasial & Ekstraksi Data GIS]
+[STATUS: Laporan Progres Keseluruhan Minggu 1 hingga Minggu 3]
+[FOKUS PROYEK: Sistem Pendukung Keputusan Dispatch Alat Berat dengan Dynamic Routing]
 
 --- KONTEKS MASALAH UTAMA ---
-Dalam penanganan pasca-bencana (seperti studi kasus di Aceh atau daerah rawan bencana lainnya), tantangan terbesar adalah terhambatnya proses evakuasi dan logistik akibat akses jalan utama yang tertutup material longsor, pohon tumbang, atau banjir.
-Untuk memulihkan jalur tersebut, dibutuhkan pengerahan "Alat Berat" (Excavator, Bulldozer, Dump Truck) secara sangat cepat. 
-Namun di lapangan, BPBD dan tim SAR mengalami masalah:
-1. Tidak ada basis data terpusat yang melacak koordinat alat berat yang sedang siaga atau beroperasi.
-2. Keputusan penugasan alat berat sering tidak efisien karena tidak memperhitungkan jarak tempuh aktual.
-3. Rute jalan menuju lokasi bencana sering kali terputus secara tiba-tiba, dan tim kesulitan mencari "Rute Alternatif" secara real-time.
+Dalam penanganan pasca-bencana, tantangan terbesar adalah terhambatnya evakuasi akibat akses jalan utama yang tertutup material longsor, pohon tumbang, atau banjir.
+Dibutuhkan pengerahan "Alat Berat" secara sangat cepat, namun BPBD sering menghadapi kendala:
+1. Tidak ada basis data terpusat yang melacak koordinat alat berat siaga secara real-time.
+2. Penugasan tidak efisien karena tidak memperhitungkan jarak tempuh aktual dan topografi.
+3. Rute jalan menuju lokasi bencana bisa terputus tiba-tiba, sehingga tim kesulitan mencari "Rute Alternatif" (Dynamic Routing).
 
---- SOLUSI YANG DITAWARKAN (DARLAM) ---
-DARLAM adalah sistem cerdas berbasis Web-GIS (Geographic Information System) yang berfungsi sebagai "Sistem Pendukung Keputusan Dispatch Alat Berat".
-Fitur pembunuhnya adalah "Dynamic Routing": Sistem tidak hanya mencari alat berat terdekat, tetapi mampu menghitung ulang rute secara matematis (Dijkstra algorithm) apabila ada laporan bahwa ruas jalan tertentu tertutup akibat longsor susulan.
+--- TEKNOLOGI & ARSITEKTUR ---
+1. Database: PostgreSQL & PostGIS (Penyimpanan data geospasial).
+2. Algoritma Graf: pgRouting 4.x (Pemrosesan Dijkstra dan topologi jalan di level database).
+3. Backend: FastAPI Python (Komunikasi data berkecepatan tinggi).
+4. Frontend: React.js, Vite, Tailwind CSS, Framer Motion, React-Leaflet (UI/UX modern interaktif).
 
---- ARSITEKTUR & TEKNOLOGI (ENGINEERING LAYER) ---
-Untuk mewujudkan Dynamic Routing dan kalkulasi spasial, proyek ini menggunakan teknologi yang berstandar industri (bukan file statis/JSON).
-1. PostgreSQL: Sebagai Relational Database Management System (RDBMS) utama.
-2. PostGIS: Ekstensi spasial yang memungkinkan penyimpanan titik koordinat (Point) untuk alat berat, dan garis topologi jalan (LineString).
-3. pgRouting: Ekstensi algoritma graf (Graph Algorithm) yang berjalan langsung di level database untuk mencari rute tercepat (Cost-based routing).
-4. QGIS: Software pemetaan untuk mengolah dan membersihkan data satelit/peta mentah.
+--- PENCAPAIAN MINGGU 1: Arsitektur Database & Pemrosesan Spasial ---
+1. Desain ERD & Relasi: Pembuatan tabel krusial seperti "alat_berat", "penugasan", "jaringan_jalan", dan "fasilitas_darurat" yang terintegrasi secara relasional.
+2. Ekstraksi OpenStreetMap: Penarikan data jalan nyata Lampung Selatan.
+3. Topology Cleaning: Menggunakan algoritma v.clean di QGIS untuk merapikan garis jalan yang cacat/bertumpuk di persimpangan.
+4. Injeksi Data: Impor data vektor ke PostGIS dan injeksi titik koordinat dummy alat berat.
 
---- PENCAPAIAN MINGGU KE-1 (HASIL IMPLEMENTASI) ---
-Minggu pertama difokuskan 100% pada penyiapan fondasi data (Backbone), dengan 3 hasil utama:
+--- PENCAPAIAN MINGGU 2: Backend API & Kecerdasan Buatan pgRouting ---
+1. Konektivitas & Konversi Spasial: Membangun FastAPI yang terhubung ke PostGIS dan memanfaatkan fungsi `ST_AsGeoJSON` untuk merubah data biner geometris langsung menjadi GeoJSON di tingkat database.
+2. Otomatisasi Topologi Graf (setup_routing): Menulis skrip Python berkecepatan tinggi yang mengeksploitasi Spatial Index (GIST), operator `&&`, dan `ST_DWithin` untuk menghubungkan puluhan ribu node (persimpangan) jalan dalam hitungan detik.
+3. Endpoint Rute Cerdas: Mengimplementasikan operator Proksimitas Spasial/K-Nearest Neighbor (`<->`) untuk mencari node jalan terdekat dengan Posko, dan menerapkan fungsi algoritma `pgr_dijkstra` untuk menghasilkan urutan garis rute terpendek secara matematis.
 
-1. Perancangan Skema Relasi Database (ERD)
-Database berhasil dibangun dengan 5 tabel operasional yang saling berelasi:
-- Tabel "alat_berat": Menyimpan koordinat armada dan status ketersediaan.
-- Tabel "kejadian_bencana": Menyimpan titik lokasi insiden bencana.
-- Tabel "penugasan": Merekam log/histori penugasan alat berat ke lokasi insiden.
-- Tabel "jaringan_jalan": Menyimpan struktur jalan lengkap dengan kolom source, target, dan cost untuk pgRouting.
-- Tabel "laporan_jalan_tutup": Menampung laporan crowdsourcing relawan jika ada jalan yang terputus.
+--- PENCAPAIAN MINGGU 3: Modernisasi UI/UX (Frontend) ---
+1. Citra Satelit Esri: Berbeda dengan aplikasi konvensional, DARLAM menggunakan Esri World Imagery (mode satelit murni) untuk memberikan konteks topografi alam nyata yang krusial untuk bencana.
+2. Glassmorphism & Framer Motion: Antarmuka dibangun dengan standar modern (kaca melayang transparan, animasi smooth) terinspirasi dari standar industri komersial e-commerce.
+3. Integrasi Full-Stack: Panel UI berhasil membaca status alat berat dari API, dan tombol interaktif mampu menggambar polyline rute Dijkstra di atas peta satelit secara instan (real-time).
 
-2. Ekstraksi Data Spasial Asli (Bukan Dummy)
-Data jaringan jalan raya wilayah Lampung Selatan (dengan fokus awal di Kalianda) diekstrak secara langsung dari OpenStreetMap (OSM) menggunakan QGIS. Proyek ini menggunakan peta dunia nyata, bukan sekadar garis lurus.
+--- PENCAPAIAN MINGGU 4: Skenario Darurat & Rute Alternatif Dinamis ---
+1. Modifikasi Skema Spasial: Penambahan indikator isolasi jalan (`is_closed`) dan *backup* nilai matematis panjang jalan (`original_cost`) di database.
+2. Dynamic Routing System: Implementasi endpoint API `POST /api/tutup-jalan` yang langsung merespons manipulasi dari panel UI.
+3. Modifikasi Logika Dijkstra: Memaksa fungsi `pgr_dijkstra` untuk membuang graf jalan yang berstatus `is_closed=TRUE` sehingga algoritma terpaksa mencari jalan tikus/alternatif yang lebih jauh dalam rentang iterasi mikrosekon.
+4. Simulasi Visual UI: Peta dilengkapi kontrol interaktif (kursor bidik) untuk simulasi penutupan jalan secara paksa. Peta akan menggambar garis poligon merah sebagai representasi putusnya jalan, dan sistem sukses menggambar ulang (re-routing) garis biru melewati rute yang sepenuhnya berbeda.
 
-3. Topology Cleaning (Pembersihan Topologi)
-Data satelit mentah selalu memiliki cacat (garis jalan bertumpuk atau tidak tersambung di persimpangan). Jika cacat ini masuk ke sistem rute, algoritma akan error. Oleh karena itu, telah dilakukan "Topology Cleaning" menggunakan algoritma "v.clean" (Grass GIS). Proses ini memotong garis secara presisi di setiap persimpangan (nodes), sehingga graf jalan valid untuk kalkulasi jarak.
-
-4. Impor ke PostGIS & Data Simulasi
-Data jalan bersih berformat GeoJSON telah berhasil diimpor ke PostgreSQL (darlam_db). Selain itu, 5 data simulasi alat berat dan titik RS/Posko telah disuntikkan ke dalam database untuk bahan pengujian API di minggu selanjutnya.
-
---- KESIMPULAN MINGGU 1 & TARGET MINGGU 2 ---
-Kesimpulan: Infrastruktur data keruangan (Spatial Database) telah berdiri sepenuhnya. Data siap diolah secara matematis.
-Target Minggu 2: Membangun Backend API (FastAPI Python) untuk menjembatani Database dan membuat fungsi otomatis pencarian rute terpendek.
+--- KESIMPULAN AKHIR PROYEK ---
+Kesimpulan: DARLAM telah terintegrasi secara penuh mulai dari manajemen data spasial, kalkulasi rute cerdas (Backend), hingga visualisasi interaktif modern (Frontend), ditambah dengan kemampuan adaptasi dinamis (Dynamic Routing) yang krusial saat jalan terputus akibat bencana.
+Sistem Siap untuk Sidang Skripsi (100%).

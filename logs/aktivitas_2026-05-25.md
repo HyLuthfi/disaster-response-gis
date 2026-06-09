@@ -30,3 +30,24 @@
 - Aksi: Mengimpor data layer jalan hasil QGIS ke PostGIS melalui DB Manager, dan mengeksekusi data simulasi alat berat.
 - File: database/dummy_data.sql
 - Catatan: MINGGU 1 SELESAI. Database siap diolah oleh Backend API di Minggu ke-2. Laporan disusun.
+
+### 20:30 — [Inisialisasi Backend API (Minggu 2)]
+- Aksi: Membuat kerangka utama backend menggunakan FastAPI dan menyusun file konfigurasi pustaka (requirements.txt).
+- File: backend/main.py, backend/requirements.txt
+- Catatan: Konektor PostgreSQL bawaan menggunakan psycopg2 telah disiapkan dan dites melalui endpoint /api/db-check.
+
+### 05:55 — [Pembuatan Endpoint Spasial (Hari 3-4)]
+- Aksi: Menulis kode endpoint `/api/alat-berat` dan `/api/fasilitas` di FastAPI. Menggunakan fungsi `ST_AsGeoJSON` PostgreSQL untuk konversi titik geometri langsung di level database.
+- File: backend/main.py (diperbarui)
+- Catatan: API berhasil menyajikan data alat berat secara real-time dari database dengan format GeoJSON yang siap dibaca oleh pustaka peta (Leaflet.js).
+
+### 06:20 — [Implementasi pgRouting API (Hari 5-7)]
+- Aksi: Mengeksekusi pembuatan topologi manual jaringan jalan (PostGIS/pgRouting 4.x), mengekstrak node sumber/tujuan. Membuat endpoint `/api/rute` menggunakan algoritma `pgr_dijkstra` untuk menyelesaikan *Shortest Path Problem*.
+- File: backend/setup_routing.py, backend/main.py
+- Catatan: API Rute telah berhasil mengimplementasikan pencarian node terdekat secara dinamis (K-Nearest Neighbor `<->`) lalu me-return format GeoJSON garis rute. MINGGU 2 SELESAI.
+
+### 06:30 — [Pembuatan UI/UX Web GIS Modern (Minggu 3)]
+- Aksi: Menginisialisasi proyek React + Vite. Membangun antarmuka bergaya premium (*Glassmorphism, Dark Mode*) menggunakan TailwindCSS dan Framer Motion yang terinspirasi dari standar desain E-Commerce modern.
+- File: frontend/src/App.jsx, frontend/tailwind.config.js, frontend/src/index.css
+- Catatan: Peta menggunakan React-Leaflet dengan integrasi API langsung ke Backend FastAPI (CORS diaktifkan). Fitur *Floating Sidebar* dan interaksi rute sudah tertanam.
+
