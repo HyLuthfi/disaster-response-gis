@@ -22,8 +22,8 @@ app.add_middleware(
 
 DB_CONFIG = {
     "dbname": "darlam_db",
-    "user": "postgres",
-    "password": "admin",
+    "user": "darlam_user",
+    "password": "darlam_secure_2026",
     "host": "localhost",
     "port": "5432"
 }
