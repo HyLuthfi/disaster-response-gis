@@ -265,6 +265,10 @@ def tolak_laporan(laporan_id: int):
     if not conn: raise HTTPException(status_code=500, detail="Database connection failed")
     try:
         cursor = conn.cursor()
+        # Hapus data dependen terlebih dahulu untuk menghindari error Foreign Key constraint
+        cursor.execute("DELETE FROM pesan_komunikasi WHERE bencana_id = %s", (laporan_id,))
+        cursor.execute("DELETE FROM tim_relawan WHERE bencana_id = %s", (laporan_id,))
+        # Baru hapus laporan utama
         cursor.execute("DELETE FROM laporan_bencana WHERE id = %s", (laporan_id,))
         conn.commit()
         return {"status": "success", "message": "Laporan dihapus"}
