@@ -1,137 +1,64 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:3b82f6,100:0f172a&height=120&section=header" width="100%">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=250&section=header&text=Hyfhi%20KEN&fontSize=50&animation=fadeIn&fontAlignY=38&desc=Informatics%20Engineering%20-%20AI%20and%20Web%20Dev&descAlignY=58&descAlign=50" width="100%" />
 
 <div align="center">
-  <br />
-  <br />
-
-# 🗺️ DISASTER RESPONSE GIS
-
-<a href="https://github.com/HyLuthfi"><img src="https://readme-typing-svg.demolab.com?font=Outfit&weight=800&size=22&pause=1000&color=3B82F6&center=true&vCenter=true&width=800&lines=Spatial+Decision+Support+System+(SDSS);Dynamic+Dijkstra+Evacuation+Routing;PostGIS,+pgRouting,+and+FastAPI;Real-Time+Disaster+Emergency+Response" alt="Typing SVG" /></a>
-
-  <br />
-  <br />
-
-  <p align="center">
-    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-    <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI">
-    <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
-    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
-    <img src="https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind">
-  </p>
-
-  <p align="center">
-    Sistem Pendukung Keputusan Spasial (SPKG) cerdas berbasis Web GIS untuk mengoptimalkan penanganan darurat bencana alam. Menggunakan algoritma <b>Dijkstra via pgRouting</b> untuk penentuan rute evakuasi dinamis dengan antarmuka analitik <i>Premium Dashboard</i>.
-  </p>
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&duration=4000&pause=1000&color=3B82F6&center=true&vCenter=true&width=550&lines=Data+Scientist+%26+Machine+Learning;Full-Stack+Web+Developer;AI+Automation+Architect" alt="Typing SVG" />
+  </a>
 </div>
 
-<p align="center"><img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%"></p>
+<br/>
 
-## ✨ Fitur Utama
+<h3 align="left"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=22&pause=1000&color=9D4EDD&width=435&lines=TECH+ARSENAL" alt="Tech Arsenal" /></h3>
+<div align="center">
+  <p><b>Languages, Frameworks, & Tools</b></p>
 
-<table align="center" width="100%">
-  <tr>
-    <td width="50%" valign="top">
-      <b>Dynamic Dijkstra Routing</b><br/>
-      Kalkulasi rute evakuasi terpendek secara <i>real-time</i> yang mampu memutar arah apabila infrastruktur jalan rusak/tertutup akibat bencana.
-    </td>
-    <td width="50%" valign="top">
-      <b>Live Spatial Fleet Dispatch</b><br/>
-      Sistem manajemen panggilan darurat yang mendistribusikan laporan ke armada logistik dan medis terdekat secara presisi.
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <b>Executive GIS Dashboard</b><br/>
-      Antarmuka Web interaktif dengan desain <i>Premium Glassmorphism</i> yang responsif memantau pergerakan relawan dan posko.
-    </td>
-    <td width="50%" valign="top">
-      <b>Decomposition Database</b><br/>
-      Topologi graf berskala enterprise menggunakan PostGIS dan pgRouting untuk komputasi jarak dan intersection berlambat rendah.
-    </td>
-  </tr>
-</table>
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=python,js,nodejs,php,cpp,html,css,react,nextjs,mysql,postgres,tensorflow,scikitlearn,git,docker,wordpress&perline=10" />
+  </a>
+</div>
+<br/>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/abhisheknaiidu/abhisheknaiidu/master/code.gif" width="550" alt="Coding Animation" style="border-radius: 10px;" />
+</div>
+<br/>
 
-<p align="center"><img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png" width="100%" /></p>
 
-## 📸 Antarmuka Sistem (Premium Dashboard)
+<h3 align="left"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=22&pause=1000&color=FF9E00&width=600&lines=HIGHLIGHTED+PROJECTS" alt="Projects" /></h3>
 
-<table align="center" width="100%">
-  <tr>
-    <td width="50%" align="center">
-      <b>Mode Armada & Radius Geofencing</b><br/>
-      <img src="img/image_2.png" width="100%">
-    </td>
-    <td width="50%" align="center">
-      <b>Peta Satelit & Dijkstra Routing</b><br/>
-      <img src="img/image.png" width="100%">
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center" valign="middle">
-      <b>Live Chat Koordinasi Relawan</b><br/>
-      <img src="img/image_3.png" width="100%">
-    </td>
-    <td width="50%" align="center" valign="middle">
-      <b>Panel Pelaporan Bencana</b><br/>
-      <img src="img/image_4.png" width="45%">
-    </td>
-  </tr>
-</table>
+| 🤖 AI & Machine Learning | 🌐 Web & Systems | ⚡ Automation & GIS |
+| :--- | :--- | :--- |
+| **[Banana & Groundnut Classifier](https://github.com/HyLuthfi/banana-ripeness-classifier)**<br/><sub>Deep Learning models for agricultural QA with confusion matrix visualization.</sub> | **[Laptop Recommendation DSS](https://github.com/HyLuthfi/laptop-recommendation-dss)**<br/><sub>Streamlit app utilizing SAW, TOPSIS, and WASPAS algorithms.</sub> | **[AI WhatsApp Bot](#)**<br/><sub>Node.js & Baileys bot integrated with Google Workspace APIs.</sub> |
+| **Forensic E-Commerce Analysis**<br/><sub>Kaggle behavioral and cyber-psychological profiling using unsupervised learning.</sub> | **[Sistem Informasi Kupang Kota](https://github.com/HyLuthfi/website-kupang-kota)**<br/><sub>Demographic & UMKM interactive maps.</sub> | **DARLAM GIS Backend**<br/><sub>High-performance emergency response GIS with pgRouting.</sub> |
+| **[NLP Gojek Sentiment Analysis](https://github.com/HyLuthfi/analisis-sentimen-gojek)**<br/><sub>Academic-grade NLP research and standardized academic portfolios.</sub> | **[E-Business Dashboard](https://github.com/HyLuthfi/E-Bussiness_Prototype)**<br/><sub>Integrated Midtrans & Biteship APIs.</sub> | **Website SMA Fransiskus**<br/><sub>CMS structure & content management.</sub> |
 
-<p align="center"><img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png" width="100%" /></p>
 
-## 🧮 Arsitektur Algoritma & Geospasial
+<h3 align="left"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=22&pause=1000&color=38B000&width=435&lines=GITHUB+ANALYTICS" alt="Analytics" /></h3>
 
-Sistem mengeksekusi operasi spasial kompleks langsung pada level basis data:
+<div align="center">
+  <img src="https://streak-stats.demolab.com?user=HyLuthfi&theme=tokyonight&hide_border=true" height="170" alt="GitHub Streak" />
+  <img src="https://github-readme-stats-eight-theta.vercel.app/api/top-langs/?username=HyLuthfi&layout=compact&theme=tokyonight&hide_border=true" height="170" alt="Top Langs" />
+</div>
 
-**Topologi Geospasial (Database Metrics):**
+<br/>
 
-- **PostGIS (Radius)** - Menggunakan operasi kueri spasial `(ST_DWithin)`
-- **pgRouting (Graph)** - Membangun topologi jaringan jalan raya `(Cost & Reverse Cost)`
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/HyLuthfi/HyLuthfi/output/github-contribution-grid-snake-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/HyLuthfi/HyLuthfi/output/github-contribution-grid-snake.svg">
+    <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/HyLuthfi/HyLuthfi/output/github-contribution-grid-snake.svg">
+  </picture>
+  <br/>
+</div>
 
-**Implementasi Algoritma:**
+<p align="center"><img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png" width="100%" /></p>
 
-1. **Dijkstra's Shortest Path:** Digunakan via fungsi bawaan `pgr_dijkstra` untuk mencari rute terefisien dari titik awal ke koordinat bencana.
-2. **Dynamic Cost Penalty:** Ketika terdapat ruas jalan yang tertutup, sistem secara otomatis menginjeksi nilai pembobot tak terhingga `(999999999)` pada ruas tersebut untuk memicu <i>rerouting</i>.
+<div align="center">
 
-<p align="center"><img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%"></p>
-
-## 🚀 Panduan Instalasi & Eksekusi
-
-Sistem ini berarsitektur terpisah (*decoupled*) dan membutuhkan dua terminal.
-
-### Bagian 1: Menjalankan Backend (Server API)
-
-1. **Migrasi Database Terpusat**
-   ```bash
-   cd backend
-   python setup_tables.py
-   python setup_routing.py
-   python setup_users.py
-   ```
-2. **Install Dependensi**
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Jalankan Server Uvicorn**
-   ```bash
-   python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-   ```
-
-### Bagian 2: Eksekusi Frontend (Web Dashboard)
-
-Buka terminal kedua untuk menjalankan antarmuka Web GIS yang merender Leaflet secara dinamis melalui <i>Vite Dev Server</i>.
-
-1. **Arahkan ke folder**
-   ```bash
-   cd frontend
-   ```
-2. **Install & Eksekusi**
-   ```bash
-   npm install
-   npm run dev
-   ```
+  <a href="mailto:luthfirg2502@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" /></a> <a href="https://linkedin.com/in/luthfimuthathohirin" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a> <a href="https://kaggle.com/hyluthfi" target="_blank"><img src="https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white" alt="Kaggle" /></a>
+</div>
 
 <p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:3b82f6,100:0f172a&height=120&section=footer" width="100%"/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=timeGradient&height=100&section=footer" width="100%" />
 </p>
