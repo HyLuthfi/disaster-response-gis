@@ -491,6 +491,15 @@ export default function App() {
     }
   }, [currentUser]);
 
+  // Update web title based on currentUser
+  useEffect(() => {
+    if (currentUser && currentUser.username) {
+      document.title = currentUser.username;
+    } else {
+      document.title = 'DARLAM';
+    }
+  }, [currentUser]);
+
   const activeSatgasDispatchIdRef = useRef(null);
 
   useEffect(() => {
