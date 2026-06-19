@@ -423,12 +423,12 @@ export default function App() {
 
   useEffect(() => {
     Promise.all([
-      fetch('http://127.0.0.1:8000/api/alat-berat').then(res => res.json()),
-      fetch('http://127.0.0.1:8000/api/fasilitas').then(res => res.json()),
-      fetch('http://127.0.0.1:8000/api/bencana').then(res => res.json()),
-      fetch('http://127.0.0.1:8000/api/pesan-publik').then(res => res.json()),
-      fetch('http://127.0.0.1:8000/api/logistik').then(res => res.json()),
-      fetch('http://127.0.0.1:8000/api/jalan-tertutup').then(res => res.json()).catch(() => ({data: []}))
+      fetch('/api/alat-berat').then(res => res.json()),
+      fetch('/api/fasilitas').then(res => res.json()),
+      fetch('/api/bencana').then(res => res.json()),
+      fetch('/api/pesan-publik').then(res => res.json()),
+      fetch('/api/logistik').then(res => res.json()),
+      fetch('/api/jalan-tertutup').then(res => res.json()).catch(() => ({data: []}))
     ]).then(([resAlat, resFasilitas, resBencana, resPesan, resLogistik, resJalan]) => {
       const alatData = resAlat?.data || [];
       const fasData = resFasilitas?.data || [];
@@ -478,7 +478,7 @@ export default function App() {
     if (currentUser && currentUser.role === 'Instansi') {
       const poll = setInterval(async () => {
         try {
-          const res = await fetch(`http://127.0.0.1:8000/api/dispatch/me?instansi=${encodeURIComponent(currentUser.instansi_name)}`);
+          const res = await fetch(`/api/dispatch/me?instansi=${encodeURIComponent(currentUser.instansi_name)}`);
           const data = await res.json();
           if (data.status === 'success' && data.data) {
             setIncomingDispatch(data.data);
@@ -500,7 +500,7 @@ export default function App() {
       if (myArmada) {
         const poll = setInterval(async () => {
           try {
-            const res = await fetch(`http://127.0.0.1:8000/api/dispatch/satgas/${myArmada.id}`);
+            const res = await fetch(`/api/dispatch/satgas/${myArmada.id}`);
             const data = await res.json();
             if (data.status === 'success' && data.data) {
               const dispatch = data.data;
@@ -522,7 +522,7 @@ export default function App() {
   useEffect(() => {
     const pollBencana = setInterval(async () => {
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/bencana');
+        const res = await fetch('/api/bencana');
         const data = await res.json();
         if (data.status === 'success') {
           setBencana(data.data || []);
@@ -536,7 +536,7 @@ export default function App() {
   useEffect(() => {
     const pollAlatBerat = setInterval(async () => {
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/alat-berat');
+        const res = await fetch('/api/alat-berat');
         const data = await res.json();
         if (data.status === 'success') {
           setAlatBerat(data.data || []);
@@ -552,7 +552,7 @@ export default function App() {
   useEffect(() => {
     const pollActive = setInterval(async () => {
       try {
-        const res = await fetch('http://127.0.0.1:8000/api/dispatch/active');
+        const res = await fetch('/api/dispatch/active');
         const data = await res.json();
         if (data.status === 'success' && data.data) {
           data.data.forEach(dispatch => {
@@ -575,7 +575,7 @@ export default function App() {
 
   const handleVerifyLaporan = async (id) => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/laporan/${id}/verifikasi`, { method: 'PUT' });
+      const res = await fetch(`/api/laporan/${id}/verifikasi`, { method: 'PUT' });
       if (res.ok) {
         addToast("Laporan berhasil diverifikasi!", "success");
         setBencana(prev => prev.map(b => b.id === id ? { ...b, status: 'Aktif' } : b));
@@ -589,7 +589,7 @@ export default function App() {
 
   const handleDeleteLaporan = async (id) => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/laporan/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/laporan/${id}`, { method: 'DELETE' });
       if (res.ok) {
         addToast("Laporan berhasil dibatalkan/ditolak", "success");
         setBencana(prev => prev.filter(b => b.id !== id));
@@ -607,9 +607,9 @@ export default function App() {
     setRelawanSubTab('list');
     setIsLoadingRelawan(true);
     try {
-      const resRel = await fetch(`http://127.0.0.1:8000/api/bencana/${item.id}/relawan`).then(r => r.json());
+      const resRel = await fetch(`/api/bencana/${item.id}/relawan`).then(r => r.json());
       setRelawanData(resRel?.data || []);
-      const resPesan = await fetch(`http://127.0.0.1:8000/api/bencana/${item.id}/pesan`).then(r => r.json());
+      const resPesan = await fetch(`/api/bencana/${item.id}/pesan`).then(r => r.json());
       setRelawanPesan(resPesan?.data || []);
     } catch (err) {
       console.error(err);
@@ -622,7 +622,7 @@ export default function App() {
   const handleJoinRelawan = async () => {
     if (!selectedBencanaRelawan || !currentUser) return;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/bencana/${selectedBencanaRelawan.id}/join`, {
+      const res = await fetch(`/api/bencana/${selectedBencanaRelawan.id}/join`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -661,7 +661,7 @@ export default function App() {
   const handleKirimPesanRelawan = async () => {
     if (!inputRelawanChat.trim() || !selectedBencanaRelawan) return;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/bencana/${selectedBencanaRelawan.id}/pesan`, {
+      const res = await fetch(`/api/bencana/${selectedBencanaRelawan.id}/pesan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -687,7 +687,7 @@ export default function App() {
   const handleTutupJalanMapClick = async (lat, lon) => {
     addToast("Mencari ruas jalan terdekat untuk ditutup...", "info");
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/tutup-jalan`, {
+      const res = await fetch(`/api/tutup-jalan`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lat, lon, radius: 50 })
@@ -696,7 +696,7 @@ export default function App() {
       if (res.status === 'success') {
         addToast(res.message, "success");
         // Refetch closed roads
-        const resJalan = await fetch('http://127.0.0.1:8000/api/jalan-tertutup').then(r => r.json());
+        const resJalan = await fetch('/api/jalan-tertutup').then(r => r.json());
         setJalanTertutupList(resJalan?.data || []);
       } else {
         addToast(res.detail || "Gagal menutup jalan", "error");
@@ -709,7 +709,7 @@ export default function App() {
 
   const handleBukaJalan = async (id) => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/buka-jalan/${id}`, { method: 'POST' }).then(r => r.json());
+      const res = await fetch(`/api/buka-jalan/${id}`, { method: 'POST' }).then(r => r.json());
       if (res.status === 'success') {
         addToast(res.message, "success");
         setJalanTertutupList(prev => prev.filter(j => j.id !== id));
@@ -762,7 +762,7 @@ export default function App() {
     addToast(`Mengalkulasi rute dari ${originLabel}...`, "info");
     try {
       
-      const res = await fetch(`http://127.0.0.1:8000/api/rute?start_lon=${start_lon}&start_lat=${start_lat}&end_lon=${lon}&end_lat=${lat}`);
+      const res = await fetch(`/api/rute?start_lon=${start_lon}&start_lat=${start_lat}&end_lon=${lon}&end_lat=${lat}`);
       const data = await res.json();
       
       if(data.status === 'success') {
@@ -1633,7 +1633,7 @@ export default function App() {
                                  }
                                  
                                  try {
-                                   const res = await fetch('http://127.0.0.1:8000/api/laporan', {
+                                   const res = await fetch('/api/laporan', {
                                      method: 'POST',
                                      headers: { 'Content-Type': 'application/json' },
                                      body: JSON.stringify({
@@ -1651,7 +1651,7 @@ export default function App() {
                                      addToast("Laporan Darurat berhasil dikirim ke Database!", "success");
                                      setIsFormLaporanOpen(false);
                                      // Refresh data bencana di peta
-                                     const resBencana = await fetch('http://127.0.0.1:8000/api/bencana').then(r => r.json());
+                                     const resBencana = await fetch('/api/bencana').then(r => r.json());
                                      setBencana(resBencana?.data || []);
                                    }
                                  } catch (err) {
@@ -1787,7 +1787,7 @@ export default function App() {
                                 const msg = inputEl.value.trim();
                                 if (!msg) return;
                                 try {
-                                  const res = await fetch('http://127.0.0.1:8000/api/pesan-publik', {
+                                  const res = await fetch('/api/pesan-publik', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({
@@ -1815,7 +1815,7 @@ export default function App() {
                               const msg = inputEl.value.trim();
                               if (!msg) { addToast('Tulis pesan terlebih dahulu.', 'error'); return; }
                               try {
-                                const res = await fetch('http://127.0.0.1:8000/api/pesan-publik', {
+                                const res = await fetch('/api/pesan-publik', {
                                   method: 'POST',
                                   headers: { 'Content-Type': 'application/json' },
                                   body: JSON.stringify({
@@ -2610,7 +2610,7 @@ export default function App() {
                    if(!lokasi || !deskripsi) { addToast("Harap lengkapi lokasi dan deskripsi!", "error"); return; }
                    
                    try {
-                     const res = await fetch('http://127.0.0.1:8000/api/laporan', {
+                     const res = await fetch('/api/laporan', {
                        method: 'POST',
                        headers: {'Content-Type': 'application/json'},
                        body: JSON.stringify({
@@ -2626,7 +2626,7 @@ export default function App() {
                      if (res.ok) {
                        addToast("Laporan Darurat Disiarkan! Mengupdate Peta...", "success");
                        setIsDaruratModalOpen(false);
-                       const resBencana = await fetch('http://127.0.0.1:8000/api/bencana').then(r => r.json());
+                       const resBencana = await fetch('/api/bencana').then(r => r.json());
                        setBencana(resBencana?.data || []);
                      } else {
                         try {
@@ -2830,7 +2830,7 @@ export default function App() {
                 <button 
                   onClick={async () => {
                     try {
-                      await fetch('http://127.0.0.1:8000/api/dispatch', {
+                      await fetch('/api/dispatch', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -2907,7 +2907,7 @@ export default function App() {
                   <button 
                     onClick={async () => {
                       try {
-                        await fetch(`http://127.0.0.1:8000/api/dispatch/${incomingDispatch.id}/respond`, {
+                        await fetch(`/api/dispatch/${incomingDispatch.id}/respond`, {
                           method: 'PUT',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({ status: 'Ditolak' })
@@ -2928,7 +2928,7 @@ export default function App() {
                            return;
                         }
 
-                        await fetch(`http://127.0.0.1:8000/api/dispatch/${incomingDispatch.id}/respond`, {
+                        await fetch(`/api/dispatch/${incomingDispatch.id}/respond`, {
                           method: 'PUT',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({ status: 'Diterima', armada_id: parseInt(selectedArmadaId) })
