@@ -266,6 +266,7 @@ def tolak_laporan(laporan_id: int):
     try:
         cursor = conn.cursor()
         # Hapus data dependen terlebih dahulu untuk menghindari error Foreign Key constraint
+        cursor.execute("DELETE FROM panggilan_darurat WHERE laporan_id = %s", (laporan_id,))
         cursor.execute("DELETE FROM pesan_komunikasi WHERE bencana_id = %s", (laporan_id,))
         cursor.execute("DELETE FROM tim_relawan WHERE bencana_id = %s", (laporan_id,))
         # Baru hapus laporan utama

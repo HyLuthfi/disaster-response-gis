@@ -115,6 +115,19 @@ def setup_new_tables():
                 UPDATE tim_relawan SET img_url = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80' WHERE img_url IS NULL;
             """)
 
+        print("8.5 Membuat tabel panggilan_darurat...")
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS panggilan_darurat (
+                id SERIAL PRIMARY KEY,
+                laporan_id INTEGER REFERENCES laporan_bencana(id),
+                target_instansi VARCHAR(100),
+                sender_username VARCHAR(100),
+                status VARCHAR(50) DEFAULT 'Menunggu',
+                assigned_armada_id INTEGER NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+        """)
+
         print("9. Memasukkan data dummy untuk Pesan Koordinasi Relawan...")
         cursor.execute("SELECT COUNT(*) FROM pesan_komunikasi WHERE bencana_id IS NOT NULL;")
         if cursor.fetchone()[0] == 0:
