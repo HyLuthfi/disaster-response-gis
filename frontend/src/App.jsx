@@ -871,11 +871,11 @@ export default function App() {
   // Daftar unik jenis armada untuk filter dropdown
   const jenisUnik = ['Semua', ...new Set(safeAlatBerat.map(item => item?.jenis).filter(Boolean))];
 
-  // Logika Filter Data Fasilitas dengan proteksi dan injeksi status "Tutup" untuk mockup
+  // Logika Filter Data Fasilitas dengan proteksi
   const safeFasilitasRaw = Array.isArray(fasilitas) ? fasilitas : [];
-  const safeFasilitas = safeFasilitasRaw.map((f, idx) => ({
+  const safeFasilitas = safeFasilitasRaw.map((f) => ({
     ...f,
-    status: (idx % 4 === 0 && f.jenis !== 'Posko Utama') ? 'Tutup' : 'Siaga' // Simulasi sebagian tempat tutup
+    status: f.status || 'Siaga'
   }));
   
   const filteredFasilitas = useMemo(() => {
