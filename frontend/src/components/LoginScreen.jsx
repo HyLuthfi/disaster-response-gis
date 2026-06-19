@@ -35,7 +35,7 @@ export default function LoginScreen({ onLogin }) {
       }
 
       try {
-        const response = await fetch('http://localhost:8000/api/register', {
+        const response = await fetch('/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -62,7 +62,7 @@ export default function LoginScreen({ onLogin }) {
       }
     } else {
       try {
-        const response = await fetch('http://localhost:8000/api/login', {
+        const response = await fetch('/api/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })
@@ -136,7 +136,7 @@ export default function LoginScreen({ onLogin }) {
               <h1 className="text-[1.95rem] font-black text-slate-900 tracking-tight leading-none">
                 {isRegister ? 'DAFTAR' : 'MASUK'}
                 <span className="text-[2.65rem] font-black text-blue-600 tracking-tighter leading-[1.05] mt-1 block">
-                  COMMAND CENTER
+                  DARLAM
                 </span>
               </h1>
               <p className="text-slate-500 text-[13px] font-medium mt-4 leading-relaxed">
