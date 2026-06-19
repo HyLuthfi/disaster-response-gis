@@ -651,7 +651,7 @@ def get_satgas_dispatch(armada_id: int):
             FROM panggilan_darurat p
             JOIN laporan_bencana l ON p.laporan_id = l.id
             WHERE p.assigned_armada_id = %s AND p.status = 'Diterima'
-            ORDER BY p.updated_at DESC LIMIT 1
+            ORDER BY p.created_at DESC LIMIT 1
         """, (armada_id,))
         return {"status": "success", "data": cursor.fetchone()}
     except Exception as e: raise HTTPException(status_code=500, detail=str(e))
