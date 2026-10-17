@@ -20,5 +20,5 @@ systemctl restart nginx
 echo ""
 echo "========================================="
 echo "  FRONTEND BUILD COMPLETE!"
-echo "  Access: http://195.88.211.5"
+echo "  Access: http://<server-ip>"
 echo "========================================="

@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, HTTPException
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -21,11 +22,11 @@ app.add_middleware(
 )
 
 DB_CONFIG = {
-    "dbname": "darlam_db",
-    "user": "darlam_user",
-    "password": "darlam_secure_2026",
-    "host": "localhost",
-    "port": "5432"
+    "dbname": os.getenv("DB_NAME", "darlam_db"),
+    "user": os.getenv("DB_USER", "darlam_user"),
+    "password": os.getenv("DB_PASSWORD", "darlam_password"),
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": os.getenv("DB_PORT", "5432")
 }
 
 def get_db_connection():

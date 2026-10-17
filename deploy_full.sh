@@ -1,10 +1,11 @@
 #!/bin/bash
 set -e
 
-echo "=== [1/6] Updating database credentials ==="
-sed -i 's/"user": "postgres"/"user": "darlam_user"/' /opt/darlam/backend/main.py
-sed -i 's/"password": "admin"/"password": "darlam_secure_2026"/' /opt/darlam/backend/main.py
-echo "DB credentials updated"
+echo "=== [1/6] Setting up environment variables ==="
+if [ ! -f /opt/darlam/backend/.env ]; then
+    cp /opt/darlam/backend/.env.example /opt/darlam/backend/.env 2>/dev/null || true
+fi
+echo "DB environment configured"
 
 echo "=== [2/6] Setting up Python venv & dependencies ==="
 cd /opt/darlam/backend
@@ -104,5 +105,5 @@ echo "Nginx configured"
 echo ""
 echo "========================================="
 echo "  DARLAM DEPLOYMENT COMPLETE!"
-echo "  Access: http://195.88.211.5"
+echo "  Access: http://<server-ip>"
 echo "========================================="
