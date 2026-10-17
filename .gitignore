@@ -74,5 +74,6 @@ desktop.ini
 *.swo
 
 # Custom Exclusions
-docs/
+docs/*
+!docs/architecture.d2
 DARLAM_PLAN.md

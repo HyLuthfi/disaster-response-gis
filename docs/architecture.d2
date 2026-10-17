@@ -1,0 +1,242 @@
+direction: right
+
+title: {
+  label: "DARLAM SDSS — Spatial Decision Support System Architecture"
+  near: top-center
+  shape: text
+  style: {
+    font-size: 24
+    bold: true
+    font-color: "#f8fafc"
+  }
+}
+
+# ─────────────────────────────────────────
+# CLIENT & PRESENTATION LAYER
+# ─────────────────────────────────────────
+client_layer: Presentation & Dispatch Surface {
+  style: {
+    fill: "#030712"
+    stroke: "#38bdf8"
+    border-radius: 12
+    font-color: "#7dd3fc"
+    bold: true
+  }
+
+  dashboard_ui: "React 18 + Vite Dashboard\nTailwind CSS · Framer Motion\nGlassmorphism Theme" {
+    shape: rectangle
+    style: {
+      fill: "#0b1329"
+      stroke: "#0284c7"
+      font-color: "#e0f2fe"
+    }
+  }
+
+  leaflet_map: "Leaflet Geospatial Map\nTile Layer · Satellite Basemap\nHazard Buffer Polygons" {
+    shape: rectangle
+    style: {
+      fill: "#0b1329"
+      stroke: "#0369a1"
+      font-color: "#bae6fd"
+    }
+  }
+
+  dispatch_panel: "Live Operational Panels\nSatgas Fleet Tracking\nIncident Reporting & Chat" {
+    shape: rectangle
+    style: {
+      fill: "#082f49"
+      stroke: "#38bdf8"
+      font-color: "#f0f9ff"
+    }
+  }
+
+  dashboard_ui -> leaflet_map: renders
+  dashboard_ui -> dispatch_panel: synchronizes
+}
+
+# ─────────────────────────────────────────
+# REVERSE PROXY & GATEWAY
+# ─────────────────────────────────────────
+gateway_layer: Reverse Proxy & Ingress {
+  style: {
+    fill: "#051814"
+    stroke: "#10b981"
+    border-radius: 12
+    font-color: "#6ee7b7"
+    bold: true
+  }
+
+  nginx_proxy: "Nginx Reverse Proxy (:80)\ndarlam_nginx.conf\nStatic Assets & API Relay" {
+    shape: rectangle
+    style: {
+      fill: "#062e24"
+      stroke: "#059669"
+      font-color: "#a7f3d0"
+    }
+  }
+
+  fastapi_gateway: "FastAPI Async Engine (:8000)\nREST Endpoints & WebSocket\nGeoJSON Serializer" {
+    shape: rectangle
+    style: {
+      fill: "#062e24"
+      stroke: "#10b981"
+      font-color: "#d1fae5"
+    }
+  }
+
+  nginx_proxy -> fastapi_gateway: "/api/ & /ws proxy"
+}
+
+# ─────────────────────────────────────────
+# DYNAMIC ROUTING & SPATIAL ENGINE
+# ─────────────────────────────────────────
+routing_engine: Dynamic pgRouting Engine {
+  style: {
+    fill: "#191100"
+    stroke: "#f59e0b"
+    border-radius: 12
+    font-color: "#fde68a"
+    bold: true
+  }
+
+  knn_snapping: "KNN Nearest Node Snapper\nOperator: the_geom <-> Point\nGIST Spatial Index Snapping" {
+    shape: rectangle
+    style: {
+      fill: "#451a03"
+      stroke: "#d97706"
+      font-color: "#fef3c7"
+    }
+  }
+
+  dijkstra_core: "pgr_dijkstra Algorithm\nShortest Path Topology\nUndirected (directed:=false)" {
+    shape: rectangle
+    style: {
+      fill: "#451a03"
+      stroke: "#b45309"
+      font-color: "#fde68a"
+    }
+  }
+
+  barrier_injection: "Dynamic Barrier Engine\nPenalty Cost: 999999999\nis_closed=TRUE on Hazard" {
+    shape: rectangle
+    style: {
+      fill: "#451a03"
+      stroke: "#f59e0b"
+      font-color: "#fef3c7"
+    }
+  }
+
+  knn_snapping -> dijkstra_core: Start / Target Nodes
+  barrier_injection -> dijkstra_core: Cost Weight Modifiers
+}
+
+# ─────────────────────────────────────────
+# SPATIAL DATABASE & POSTGIS LAYER
+# ─────────────────────────────────────────
+database_layer: PostGIS Spatial Storage (PostgreSQL 15) {
+  style: {
+    fill: "#0f172a"
+    stroke: "#818cf8"
+    border-radius: 12
+    font-color: "#c7d2fe"
+    bold: true
+  }
+
+  road_network: "Network Topology Tables\njaringan_jalan_temp\nvertices_pgr (Nodes / Edges)" {
+    shape: cylinder
+    style: {
+      fill: "#1e1b4b"
+      stroke: "#6366f1"
+      font-color: "#e0e7ff"
+    }
+  }
+
+  spatial_assets: "Facilities & Fleets\nfasilitas_umum (Posko, RS)\nalat_berat (Excavators)\nlaporan_bencana (Incidents)" {
+    shape: cylinder
+    style: {
+      fill: "#1e1b4b"
+      stroke: "#4f46e5"
+      font-color: "#c7d2fe"
+    }
+  }
+
+  spatial_operators: "PostGIS Spatial Functions\nST_DWithin · ST_Distance\nST_AsGeoJSON · ST_MakePoint" {
+    shape: rectangle
+    style: {
+      fill: "#1e1b4b"
+      stroke: "#818cf8"
+      font-color: "#e0e7ff"
+    }
+  }
+
+  spatial_operators -> road_network: Queries Topology
+  spatial_operators -> spatial_assets: Buffers & Distances
+}
+
+# ─────────────────────────────────────────
+# GIS DESKTOP & REMOTE SENSING
+# ─────────────────────────────────────────
+gis_layer: Desktop GIS & Preprocessing {
+  style: {
+    fill: "#1e0e29"
+    stroke: "#c084fc"
+    border-radius: 12
+    font-color: "#e9d5ff"
+    bold: true
+  }
+
+  qgis_env: "QGIS Desktop 3.x\nNetwork Topology Cleaning\nCoordinate Alignment (EPSG:4326)" {
+    shape: rectangle
+    style: {
+      fill: "#2e1065"
+      stroke: "#9333ea"
+      font-color: "#e9d5ff"
+    }
+  }
+
+  geojson_source: "Lampung Selatan Road Graph\njalan_lampung_selatan.geojson\nOpenStreetMap Extract" {
+    shape: cylinder
+    style: {
+      fill: "#3b0764"
+      stroke: "#a855f7"
+      font-color: "#f3e8ff"
+    }
+  }
+
+  qgis_env -> geojson_source: Prepares & Cleans
+  geojson_source -> database_layer.road_network: Seeded via setup_routing.py
+}
+
+# ─────────────────────────────────────────
+# DATA FLOW INTERCONNECTIONS
+# ─────────────────────────────────────────
+
+client_layer.dashboard_ui -> gateway_layer.nginx_proxy: HTTP / HTTPS Ingress {
+  style.stroke: "#38bdf8"
+  style.stroke-width: 2
+}
+
+gateway_layer.fastapi_gateway -> routing_engine.knn_snapping: Coordinates (start_lat, start_lon) {
+  style.stroke: "#10b981"
+  style.stroke-width: 2
+}
+
+gateway_layer.fastapi_gateway -> routing_engine.barrier_injection: POST /api/tutup-jalan {
+  style.stroke: "#f59e0b"
+  style.stroke-width: 2
+}
+
+routing_engine.dijkstra_core -> database_layer.spatial_operators: pgr_dijkstra SQL execution {
+  style.stroke: "#818cf8"
+  style.stroke-width: 2
+}
+
+database_layer.spatial_operators -> gateway_layer.fastapi_gateway: GeoJSON LineString Route {
+  style.stroke: "#38bdf8"
+  style.stroke-width: 2
+}
+
+gateway_layer.fastapi_gateway -> client_layer.leaflet_map: Renders Vector Route {
+  style.stroke: "#0284c7"
+  style.stroke-width: 2
+}
